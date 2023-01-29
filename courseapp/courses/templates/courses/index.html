@@ -8,7 +8,15 @@ Kurslar
 {% block content %}
     <div class="container mt-3">
         <div class="row">
-            {% include 'courses/partials/_categories.html' %}
+            <div class="col-3">
+            {% comment %} {% include 'courses/partials/_categories.html' %} {% endcomment %}
+            <div class="list-group">
+                {% for category in categories %}
+                    <a href="{% url 'courses_by_category' category %}" class="list-group-item list-group-item-action">{{category}}</a>
+                {% endfor %}
+            </div>
+        
+            </div>
             <!--content-->
             <div class="col-9">
             
