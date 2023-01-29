@@ -8,11 +8,12 @@ Kurslar
 {% block content %}
     <div class="container mt-3">
         <div class="row">
-            {% include 'courses/partials/_categories.html' %}
-            <!--content-->
-            <div class="col-9">
             
-                <h1>Kurslar</h1>
+            <!--content-->
+            <div class="col-12">
+            
+                <h1>{{ category }}</h1>
+                <p>{{ category_text }}</p>
             
             </div>
         </div>

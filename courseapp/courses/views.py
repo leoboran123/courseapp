@@ -31,7 +31,10 @@ def getCoursesByCategory(req, category_name):
     text=""
     try:
         text=data[category_name]
-        return HttpResponse(text)
+        return render(req, 'courses/courses.html', {
+            'category' : category_name,
+            'category_text': text
+        })
     except:
         return HttpResponse("Yanlış kategori seçimi!")
 
