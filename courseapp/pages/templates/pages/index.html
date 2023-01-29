@@ -10,6 +10,16 @@ Anasayfa
 {% endblock title %}
 
 {% block content %}
-    <h1>Anasayfa</h1>
-    <i class="fa-solid fa-code"></i>
+<div class="container mt-3">
+    <div class="row">
+        
+        <!--menu-->
+        {% include 'courses/partials/_categories.html' %}
+        
+        <div class="col-9">
+        <!--content-->
+        <h1>Anasayfa</h1>
+        </div>
+    </div>
+</div>
 {% endblock %}
