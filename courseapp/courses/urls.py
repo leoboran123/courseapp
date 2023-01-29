@@ -9,7 +9,7 @@ from . import views
 # getCoursesByCategory isimli fonksiyona gönderilir.
 
 urlpatterns = [
-    path('',views.kurslar),
+    path('',views.index),
     path('list',views.kurslar),
     path('<kurs_adi>',views.details),
     path('kategori/<int:category_id>',views.getCoursesByCategoryId),
