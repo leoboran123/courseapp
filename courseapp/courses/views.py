@@ -14,7 +14,7 @@ db = {
         {
         "title":"Javascript Kursu",
         "description": "Javascript kurs açıklaması",
-        "imageUrl":"https://i.ytimg.com/vi/jS4aFq5-91M/maxresdefault.jpg",
+        "imageUrl":"1.jpg",
         "slug":"javascript",
         "date":date(2022,10,10),
         "isActive":True,
@@ -23,7 +23,7 @@ db = {
         {
         "title":"Python Kursu",
         "description": "Python kurs açıklaması",
-        "imageUrl":"https://www.upf.edu/documents/222910037/261564223/python2/7b73d5da-bcc5-72e0-db72-f1e763612931?t=1665491363773",
+        "imageUrl":"2.png",
         "slug":"python",
         "date":date(2022,9,10),
         "isActive":True,
@@ -32,7 +32,7 @@ db = {
         {
         "title":"web geliştirme Kursu",
         "description": "web geliştirme kurs açıklaması",
-        "imageUrl":"https://www.kodsihirbazi.com/wp-content/uploads/2018/03/Web-Geli%C5%9Ftirme-501x330.png",
+        "imageUrl":"3.png",
         "slug":"web-geliştirme",
         "date":date(2022,8,10),
         "isActive":True,
