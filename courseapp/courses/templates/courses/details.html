@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ course.title }}
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+
+            <div class="col-4">
+                
+                <img class="img-fluid rounded" src="{% static 'courses/img/'|add:course.imageUrl %}" alt="Card image cap">
+
+            </div>
+
+            <div class="col-8">
+                
+                <h1>{{ course.title }}</h1>
+                <p>{{ course.description }}</p>
+            
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

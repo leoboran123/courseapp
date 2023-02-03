@@ -1,6 +1,6 @@
 from datetime import date
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.shortcuts import render,redirect, get_object_or_404
+from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .models import Course,Categorie
 
@@ -62,8 +62,21 @@ def index(req):
     })
 
     
-def details(req, kurs_adi):
-    return HttpResponse(kurs_adi)
+def details(req, course_id):
+    try:
+        course = Course.objects.get(slug=course_id)  
+    except:
+        raise Http404()
+
+    # --------------öbür yol---------------
+
+    # course = get_object_or_404(Course, pk=kurs_id)
+
+    return render(req, 'courses/details.html', {
+            'course': course
+        })
+
+
 
 def getCoursesByCategory(req, category_name):
     # category değişkeni url üzerine girilen değerdir.
