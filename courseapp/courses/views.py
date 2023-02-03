@@ -2,7 +2,9 @@ from datetime import date
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Course
+from .models import Course,Categorie
+
+
 
 data = {
     "programlama":"Programlama kategorisindeki kurslar",
@@ -52,7 +54,7 @@ db = {
 
 def index(req):
     kurslar = Course.objects.filter(isActive=1)
-    kategoriler = db["categories"]
+    kategoriler = Categorie.objects.all()
 
     return render(req,"courses/index.html", {
         'categories':kategoriler,
@@ -67,11 +69,12 @@ def getCoursesByCategory(req, category_name):
     # category değişkeni url üzerine girilen değerdir.
     text=""
     try:
-        text=data[category_name]
+        text=Categorie.objects.get(slug=category_name)
+            
         return render(req, 'courses/courses.html', {
-            'category' : category_name,
-            'category_text': text
-        })
+                'category' : text.title,
+                'category_text': text.description
+            })
     except:
         return HttpResponse("Yanlış kategori seçimi!")
 

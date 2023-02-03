@@ -12,3 +12,9 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.title} {self.date}"
 
+class Categorie(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    slug = models.CharField(max_length=50, null=True)
+    isActive = models.BooleanField()
+
