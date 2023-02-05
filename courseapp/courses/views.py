@@ -78,30 +78,16 @@ def details(req, course_id):
 
 
 
-def getCoursesByCategory(req, category_name):
-    # category değişkeni url üzerine girilen değerdir.
-    text=""
-    try:
-        text=Categorie.objects.get(slug=category_name)
-            
-        return render(req, 'courses/courses.html', {
-                'category' : text.title,
-                'category_text': text.description
-            })
-    except:
-        return HttpResponse("Yanlış kategori seçimi!")
+def getCoursesByCategory(req, slug):
+    kurslar = Course.objects.filter(categorie__slug=slug, isActive=True)
+    kategoriler = Categorie.objects.all()
+
+    return render(req, 'courses/index.html', {
+        'categories':kategoriler,
+        'courses':kurslar,
+        'seciliKategori': slug
+    })
 
 
-    
-def getCoursesByCategoryId(req, category_id):
-    category_list = list(data.keys())
-    if(category_id > len(category_list)):
-        return HttpResponse("Yanlış kategori seçimi!")
-
-    category = category_list[category_id - 1]
-
-    redirect_url= reverse('courses_by_category', args=[category])
-
-    return redirect(redirect_url)
 
 

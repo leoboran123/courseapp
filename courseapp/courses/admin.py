@@ -8,7 +8,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_display_links = ("title","slug")
     prepopulated_fields = {"slug":("title",),}
     list_filter = ("isActive","categorie")
-    list_editable = ("isActive",)
+    list_editable = ("isActive","categorie")
     search_fields = ("title","description")
 
 
@@ -17,6 +17,7 @@ class CourseAdmin(admin.ModelAdmin):
 class CategorieAdmin(admin.ModelAdmin):
     list_display = ("title","isActive","slug")
     prepopulated_fields = {"slug":("title",),}
+    list_editable = ("isActive",)
 
 
 

@@ -1,8 +1,10 @@
 
         <!--menu-->
+        
         <div class="list-group">
+            <a href="/kurslar" class="list-group-item list-group-item-action">Tüm Kategoriler</a>
             {% for category in categories %}
-                <a href="{% url 'courses_by_category' category.slug %}" class="list-group-item list-group-item-action">{{ category.title}}</a>
+                <a href="{% url 'courses_by_category' category.slug %}" class="list-group-item list-group-item-action {% if seciliKategori == category.slug %} active {% endif %}">{{ category.title}}</a>
             {% endfor %}
         </div>
 
