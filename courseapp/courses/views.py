@@ -3,52 +3,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .models import Course,Categorie
-
-
-
-data = {
-    "programlama":"Programlama kategorisindeki kurslar",
-    "mobil":"Mobil programlama kategorisindeki kurslar",
-    "web":"Web programlama kategorisindeki kurslar"
-}
-
-db = {
-    "courses":[
-        {
-        "title":"Javascript Kursu",
-        "description": "Javascript kurs açıklaması",
-        "imageUrl":"1.jpg",
-        "slug":"javascript",
-        "date":date(2022,10,10),
-        "isActive":True,
-        "isUpdated":True
-        },
-        {
-        "title":"Python Kursu",
-        "description": "Python kurs açıklaması",
-        "imageUrl":"2.png",
-        "slug":"python",
-        "date":date(2022,9,10),
-        "isActive":True,
-        "isUpdated":False
-        },
-        {
-        "title":"web geliştirme Kursu",
-        "description": "web geliştirme kurs açıklaması",
-        "imageUrl":"3.png",
-        "slug":"web-geliştirme",
-        "date":date(2022,8,10),
-        "isActive":True,
-        "isUpdated":True
-        }
-    ],
-    "categories": [
-            {"id":1, "name":"Programlama","slug":"programlama"},
-            {"id":2, "name":"Mobil Uygulama","slug":"mobil"},
-            {"id":3, "name":"Web Geliştirme","slug":"web"},
-        
-        ]
-}
+from django.core.paginator import Paginator
 
 
 
@@ -79,13 +34,29 @@ def details(req, course_id):
 
 
 def getCoursesByCategory(req, slug):
-    kurslar = Course.objects.filter(categorie__slug=slug, isActive=True)
+    kurslar = Course.objects.filter(categories__slug=slug, isActive=True).order_by("date")
     kategoriler = Categorie.objects.all()
+
+    paginator = Paginator(kurslar, 2)
+    page = req.GET.get('page',1)
+    courses = paginator.get_page(page)
+
+    numberofPages = []
+
+    i=0
+    while i<paginator.num_pages:
+        i+=1
+        numberofPages.append(i)
 
     return render(req, 'courses/index.html', {
         'categories':kategoriler,
-        'courses':kurslar,
-        'seciliKategori': slug
+        'courses':courses,
+        'seciliKategori': slug,
+        'paginator': paginator,
+        'nop':numberofPages,
+        'page':int(page)
+        
+        
     })
 
 

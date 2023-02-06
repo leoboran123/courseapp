@@ -4,21 +4,31 @@ from .models import Course, Categorie
 @admin.register(Course)
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title","isActive","date","slug","categorie")
+    list_display = ("title","isActive","date","slug","category_list",)
     list_display_links = ("title","slug")
     prepopulated_fields = {"slug":("title",),}
-    list_filter = ("isActive","categorie")
-    list_editable = ("isActive","categorie")
+    list_filter = ("isActive",)
+    list_editable = ("isActive",)
     search_fields = ("title","description")
 
+    def category_list(self, obj):
+        html = ""
+        
+        for category in obj.categories.all():
+            html += category.title + " "
+        
+        return html
 
 @admin.register(Categorie)
 
 class CategorieAdmin(admin.ModelAdmin):
-    list_display = ("title","isActive","slug")
+    list_display = ("title","isActive","slug","courses")
     prepopulated_fields = {"slug":("title",),}
     list_editable = ("isActive",)
 
-
+    def courses(self, obj):
+        
+        
+        return obj.course_set.count()
 
 
