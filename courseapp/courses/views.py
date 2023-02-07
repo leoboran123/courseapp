@@ -8,12 +8,28 @@ from django.core.paginator import Paginator
 
 
 def index(req):
-    kurslar = Course.objects.filter(isActive=1)
+    kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Categorie.objects.all()
 
     return render(req,"courses/index.html", {
         'categories':kategoriler,
         'courses':kurslar
+    })
+
+
+def search(req):
+    if "q" in req.GET and req.GET["q"] != "":
+        q = req.GET["q"]
+        kurslar = Course.objects.filter(isActive=True, title__contains=q).order_by("date")
+        kategoriler = Categorie.objects.all()
+    else:
+        return redirect("/kurslar")
+
+
+    return render(req, 'courses/search.html', {
+        'categories':kategoriler,
+        'courses':kurslar,
+  
     })
 
     
@@ -48,7 +64,7 @@ def getCoursesByCategory(req, slug):
         i+=1
         numberofPages.append(i)
 
-    return render(req, 'courses/index.html', {
+    return render(req, 'courses/list.html', {
         'categories':kategoriler,
         'courses':courses,
         'seciliKategori': slug,

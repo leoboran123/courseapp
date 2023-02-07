@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
     <div class="container">
         <a href="/" class="navbar-brand">Course App</a>
@@ -14,5 +13,13 @@
                 <a href="/about" class="nav-link">Hakkımızda</a>
             </li>
         </ul>
+
+        <div>
+            <form class="d-flex" action="{% url 'search' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Anahtar Kelime" aria-label="Search" name="q">
+                <button size="207" class="btn btn-success my-2 my-sm-0" type="submit">Arama</button>
+            </form>
+        </div>
+
     </div>
 </nav>
