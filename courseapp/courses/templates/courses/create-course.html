@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Create Course
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+
+            <div class="col-12">
+                <form action="{% url 'create_course' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Başlık</label>
+                        <input type="text" name="title" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Açıklama</label>
+                        <textarea type="text" name="description" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageUrl" class="form-label">Resim URL</label>
+                        <input type="text" name="imageUrl" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <input type="checkbox" name="isActive" class="form-check-input">
+                        <label for="isActive" class="form-check-label">isActive</label>
+
+                    </div>
+                    <div class="mb-3">
+                        <input type="checkbox" name="isHome" class="form-check-input">
+                        <label for="isHome" class="form-check-label">isHome</label>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">slug</label>
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+
+                </form>
+
+            </div>
+
+            
+        </div>
+    </div>
+
+{% endblock %}

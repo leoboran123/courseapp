@@ -27,7 +27,6 @@ class Course(models.Model):
     isActive = models.BooleanField(default=False)
     isHome = models.BooleanField(default=False)
     slug = models.SlugField(default="",blank=True, null=False, unique=True, db_index=True)
-    # categorie = models.ForeignKey(Categorie,null=True, default="", on_delete=models.CASCADE, related_name="kurslar")
     categories = models.ManyToManyField(Categorie)
 
 
