@@ -2,6 +2,8 @@ from datetime import date
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.urls import reverse
+
+from courses.forms import CourseCreateForm
 from .models import Course,Categorie
 from django.core.paginator import Paginator
 
@@ -17,25 +19,30 @@ def index(req):
     })
 
 def create_course(req):
-    if req.method == "POST":
-        title = req.POST["title"]
-        description = req.POST["description"]
-        imageUrl = req.POST["imageUrl"]
-        slug = req.POST["slug"]
-        isActive = req.POST.get("isActive", False)
-        isHome = req.POST.get("isHome", False)
 
-        if isActive=="on":
-            isActive=True
-        if isHome=="on":
-            isHome=True
+    if req.method=="POST":
+        form = CourseCreateForm(req.POST)
 
-        kurs = Course(title=title, description=description, slug=slug, imageUrl=imageUrl, isActive=isActive, isHome=isHome)
-        kurs.save()
-        return redirect("/kurslar")
+        if form.is_valid():
+            kurs = Course(
+                title=form.cleaned_data["title"],
+                description=form.cleaned_data["description"],
+                imageUrl=form.cleaned_data["imageUrl"],
+                slug=form.cleaned_data["slug"],
+                )
+            kurs.save()
+
+            return redirect("/kurslar")
+
+        else:
+            pass
 
     else:
-        return render(req, "courses/create-course.html")
+        form = CourseCreateForm()
+        
+    return render(req, "courses/create-course.html", {
+        "form":form
+    })
 
 
 
