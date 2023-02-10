@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Edit Course
+{% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <p>
+                <strong>{{course.title}}</strong> isimli kursu silmek istiyor musunuz?
+
+                <form action="{% url 'delete_course' course.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Evet</button>
+                    <a href="{% url 'course_list' %}" class="btn btn-primary">Hayır</a>
+
+                </form>
+            </p>
+            
+
+            
+        </div>
+    </div>
+
+{% endblock %}

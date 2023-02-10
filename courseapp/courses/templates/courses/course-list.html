@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock css_files %}
+
+{% block title %}
+Kurslar
+{% endblock title %}
+
+
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+            <div class="col-12">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:120px"></th>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th style="width:70px;"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                            <tr>
+                                <td>
+                                    <img src="{% static 'courses/img/'|add:course.imageUrl %}" class="img-fluid">
+                                </td>
+                                <td>{{course.title}}</td>
+                                <td>{{course.slug}}</td>
+                                <td>
+                                    <a href="{% url 'edit_course' course.id %}" class="btn btn-primary btn-sm">Güncelle</a>
+                                    <a href="{% url 'delete_course' course.id %}" class="btn btn-danger btn-sm">sil</a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                    
+            </div>
+        </div>
+    </div>
+    
+    {% block js_files %}
+    <script src="{% static 'courses/js/script.js' %}"></script>
+    {% endblock js_files %}
+    
+{% endblock %}

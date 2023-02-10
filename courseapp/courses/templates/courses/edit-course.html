@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Edit Course
+{% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+
+            <div class="col-12">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{msg}}
+                    </div>
+                {% endif %}
+
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+
+                    {% comment %} otomatik döngü ile ekleme {% endcomment %}
+                    {% for field in form %}
+                        <div class="mb-3 {% if field.errors %} invalid {% endif %}">
+                            {% if field.errors %}
+
+                                <div class="alert alert-danger">
+                                    {{ field.errors }}
+                                </div>
+                                
+                            {% endif %}
+
+                            <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+
+                </form>
+
+            </div>
+
+            
+        </div>
+    </div>
+
+{% endblock %}
