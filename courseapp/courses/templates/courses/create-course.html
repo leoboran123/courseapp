@@ -23,7 +23,7 @@
                     </div>
                 {% endif %}
 
-                <form action="{% url 'create_course' %}" method="POST" novalidate>
+                <form action="{% url 'create_course' %}" method="POST" novalidate enctype="multipart/form-data">
                     {% csrf_token %}
 
                     {% comment %} otomatik döngü ile ekleme {% endcomment %}

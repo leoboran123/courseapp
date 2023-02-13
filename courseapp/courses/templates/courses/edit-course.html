@@ -23,7 +23,7 @@
                     </div>
                 {% endif %}
 
-                <form method="POST" novalidate>
+                <form method="POST" novalidate enctype="multipart/form-data">
                     {% csrf_token %}
 
                     {% comment %} otomatik döngü ile ekleme {% endcomment %}

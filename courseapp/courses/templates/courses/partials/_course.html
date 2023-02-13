@@ -4,7 +4,7 @@
     {% if course.isActive %}
                 <div class="card-group">
                     <div class="card mt-2 mb-1" >
-                      <img class="card-img-top" src="{% static 'courses/img/'|add:course.imageUrl %}" alt="Card image cap">
+                      <img class="card-img-top" src="{{ course.image.url }}" alt="Card image cap">
                       <div class="card-body" >
                         <h5 class="card-title">
                           <a href="{% url 'course_details' course.slug %}" class="link-primary"> 

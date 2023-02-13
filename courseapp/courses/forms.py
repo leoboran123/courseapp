@@ -18,7 +18,7 @@ from courses.models import Course
 class CourseCreateForm(ModelForm):
     class Meta:
         model = Course
-        fields = ['title','description','imageUrl','slug']
+        fields = ['title','description','image','slug']
         labels = {
             'title': "Kurs Başlığı",
             'description':"Kurs Açıklaması",
@@ -26,7 +26,6 @@ class CourseCreateForm(ModelForm):
         widgets = {
             "title": TextInput(attrs={"class":"form-control"}),
             "description": Textarea(attrs={"class":"form-control"}),
-            "imageUrl": TextInput(attrs={"class":"form-control"}),
             "slug": TextInput(attrs={"class":"form-control"}),
             
 
@@ -46,7 +45,7 @@ class CourseCreateForm(ModelForm):
 class CourseEditForm(ModelForm):
     class Meta:
         model = Course
-        fields = ['title','description','imageUrl','slug','categories','isActive']
+        fields = ['title','description','image','slug','categories','isActive']
         labels = {
             'title': "Kurs Başlığı",
             'description':"Kurs Açıklaması",
@@ -54,7 +53,6 @@ class CourseEditForm(ModelForm):
         widgets = {
             "title": TextInput(attrs={"class":"form-control"}),
             "description": Textarea(attrs={"class":"form-control"}),
-            "imageUrl": TextInput(attrs={"class":"form-control"}),
             "slug": TextInput(attrs={"class":"form-control"}),
             "categories":SelectMultiple(attrs={"class":"form-control"})
             
@@ -71,3 +69,12 @@ class CourseEditForm(ModelForm):
                 
             }
         }
+
+
+class uploadForm(forms.Form):
+    image = forms.ImageField()
+
+
+
+
+

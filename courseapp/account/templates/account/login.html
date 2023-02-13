@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock css_files %}
+
+{% block title %}
+Giriş Yap
+{% endblock title %}
+
+
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+            <div class="col-12">
+                <h1>Giriş Yap</h1>
+                <hr>
+                <form action="{% url 'user_login' %}" method="POST">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kullanıcı Adı:</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Şifre:</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% block js_files %}
+    <script src="{% static 'courses/js/script.js' %}"></script>
+    {% endblock js_files %}
+    
+{% endblock %}
