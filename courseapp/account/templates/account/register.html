@@ -1,1 +1,56 @@
-register
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock css_files %}
+
+{% block title %}
+Kayıt Ol
+{% endblock title %}
+
+
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            
+            <!--content-->
+            <div class="col-12">
+                <h1>Kayıt Ol</h1>
+                <hr>
+                <form action="{% url 'user_register' %}" method="POST">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kullanıcı Adı:</label>
+                        <input type="text" name="username" id="username" class="form-control" required {% if username %}value="{{username}}"{% endif %}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-Mail:</label>
+                        <input type="email" name="email" id="email" class="form-control" required {% if email %}value="{{email}}"{% endif %}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Şifre:</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="repassword" class="form-label">Yeniden Şifre:</label>
+                        <input type="password" name="repassword" id="repassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% block js_files %}
+    <script src="{% static 'courses/js/script.js' %}"></script>
+    {% endblock js_files %}
+    
+{% endblock %}

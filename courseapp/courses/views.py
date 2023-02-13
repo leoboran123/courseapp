@@ -7,6 +7,8 @@ from courses.forms import CourseCreateForm, CourseEditForm, uploadForm
 from .models import Course,Categorie, uploadModel
 from django.core.paginator import Paginator
 
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 import random
 import os
 
@@ -20,6 +22,12 @@ def index(req):
         'courses':kurslar
     })
 
+
+def isAdmin(user):
+    return user.is_superuser
+
+
+@user_passes_test(isAdmin)
 def create_course(req):
 
     if req.method=="POST":
@@ -40,6 +48,7 @@ def create_course(req):
     })
 
 
+@user_passes_test(isAdmin)
 def course_list(req):
     kurslar = Course.objects.all()
 
@@ -48,6 +57,7 @@ def course_list(req):
     })
 
 
+@login_required()
 def course_edit(req,id):
     course = get_object_or_404(Course, pk=id)
 

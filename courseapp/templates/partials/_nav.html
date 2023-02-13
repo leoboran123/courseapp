@@ -18,19 +18,39 @@
                 <li class="nav-item">
                     <a href="/about" class="nav-link">Hakkımızda</a>
                 </li>
-                
+
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a href="{% url 'create_course' %}" class="nav-link">Kurs Ekle</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{% url 'course_list' %}" class="nav-link">Kurs Listesi</a>
+                    </li>
+                {% endif %}
             </ul>
 
             <ul class="navbar-nav me-1">
-                <li class="nav-item">
-                    <a href="{% url 'user_login' %}" class="nav-link">Giriş Yap</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'user_register' %}" class="nav-link">Kayıt Ol</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'user_logout' %}" class="nav-link">Çıkış Yap</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link">{{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_logout' %}" class="nav-link">Çıkış Yap</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'user_login' %}" class="nav-link">Giriş Yap</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'user_register' %}" class="nav-link">Kayıt Ol</a>
+                    </li>
+                {% endif %}
+
+                
+
+                
             </ul>
             <div>
                 <form class="d-flex" action="{% url 'search' %}">
