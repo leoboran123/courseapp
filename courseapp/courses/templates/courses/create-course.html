@@ -26,46 +26,10 @@
                 <form action="{% url 'create_course' %}" method="POST" novalidate enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {% comment %} otomatik döngü ile ekleme {% endcomment %}
-                    {% for field in form %}
-                        <div class="mb-3 {% if field.errors %} invalid {% endif %}">
-                            {% if field.errors %}
+                    {% include 'partials/_form.html' %}
+                    
 
-                                <div class="alert alert-danger">
-                                    {{ field.errors }}
-                                </div>
-                                
-                            {% endif %}
-
-                            <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-
-                    {% comment %} elle ekleme {% endcomment %}
-                    {% comment %} <div class="mb-3 {% if form.title.errors %} invalid {% endif %}">
-                        {{ form.title.errors }}
-                        <label for="{{form.title.id_for_label}}" class="form-label">Kurs Başlığı:</label>
-                        {{ form.title }}
-                    </div>
-
-                    <div class="mb-3 {% if form.description.errors %} invalid {% endif %}">
-                        {{ form.description.errors }}
-                        <label for="{{form.description.id_for_label}}" class="form-label">Kurs Açıklaması:</label>
-                        {{ form.description }}
-                    </div>
-
-                    <div class="mb-3 {% if form.imageUrl.errors %} invalid {% endif %}">
-                        {{ form.imageUrl.errors }}
-                        <label for="{{form.imageUrl.id_for_label}}" class="form-label">imageUrl:</label>
-                        {{ form.imageUrl }}
-                    </div>
-
-                    <div class="mb-3 {% if form.slug.errors %} invalid {% endif %}">
-                        {{ form.slug.errors }}
-                        <label for="{{form.slug.id_for_label}}" class="form-label">Slug:</label>
-                        {{ form.slug }}
-                    </div> {% endcomment %}
+                    
                         
                     <button type="submit" class="btn btn-primary">Kaydet</button>
 

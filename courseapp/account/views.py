@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User 
+from django.contrib import messages
+from account.forms import loginUserForm
 
 
 def user_login(req):
@@ -8,26 +10,37 @@ def user_login(req):
         return redirect("kurslar")
 
     if req.method == "POST":
-        username = req.POST["username"]
-        password = req.POST["password"]
+        form = loginUserForm(req, data=req.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
 
-        user = authenticate(req, username=username, password=password)
+            user = authenticate(req, username=username, password=password)
         
-        if user is not None:
-            login(req, user)
-            nextUrl = req.GET.get('next', None)
+            if user is not None:
+                login(req, user)
+                messages.add_message(req ,messages.SUCCESS, "Giriş başarılı!")
+                nextUrl = req.GET.get('next', None)
 
-            if nextUrl is None:
-                return redirect("kurslar")
+                if nextUrl is None:
+                    return redirect("kurslar")
+                else:
+                    return redirect(nextUrl)
             else:
-                return redirect(nextUrl)
+                return render(req, "account/login.html", {
+                    "form":form
+                })
         else:
             return render(req, "account/login.html", {
-                "error":"Kullanıcı adı ya da parola yanlış"
+                "form":form
             })
 
     else:
-        return render(req, 'account/login.html')
+        form = loginUserForm(req)
+
+        return render(req, 'account/login.html', {
+            "form":form
+        })
 
 
 
@@ -69,6 +82,7 @@ def user_register(req):
 
 
 def user_logout(req):
+    messages.add_message(req ,messages.SUCCESS, "Çıkış başarılı!")
     logout(req)
     return redirect("kurslar")
 
