@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User 
 from django.contrib import messages
-from account.forms import loginUserForm, NewUserForm
-from django.contrib.auth.forms import UserCreationForm
+from account.forms import loginUserForm, NewUserForm, UserChangePasswordForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 
 def user_login(req):
@@ -77,6 +77,23 @@ def user_logout(req):
     logout(req)
     return redirect("kurslar")
 
+def change_password(req):
+    if req.method == "POST":
+        form= UserChangePasswordForm(req.user, req.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(req, user)
+            messages.success(req, "Parola güncellendi.")
+            return redirect("index")
+        else:
+            return render(req, "account/change_password.html", {
+                "form":form 
+            })
 
+    form = UserChangePasswordForm(req.user) 
+
+    return render(req, "account/change_password.html", {
+        "form":form 
+    })
 
 

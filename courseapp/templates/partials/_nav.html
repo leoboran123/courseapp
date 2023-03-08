@@ -36,6 +36,9 @@
                         <a href="{% url 'index' %}" class="nav-link">{{user.username}}</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{% url 'change_password' %}" class="nav-link">Parola Güncelle</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{% url 'user_logout' %}" class="nav-link">Çıkış Yap</a>
                     </li>
                 {% else %}

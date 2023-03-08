@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.forms import widgets
 from django.contrib import messages
 from django import forms
@@ -52,3 +52,14 @@ class NewUserForm(UserCreationForm):
             self.add_error("username","Bu kulanıcı adı kullanımda!")
 
         return username
+
+
+
+class UserChangePasswordForm(PasswordChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["old_password"].widget = widgets.PasswordInput(attrs={"class":"form-control"})
+        self.fields["new_password1"].widget = widgets.PasswordInput(attrs={"class":"form-control"})
+        self.fields["new_password2"].widget = widgets.PasswordInput(attrs={"class":"form-control"})
+        
