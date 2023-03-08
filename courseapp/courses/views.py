@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.urls import reverse
 
 from courses.forms import CourseCreateForm, CourseEditForm, uploadForm
-from .models import Course,Categorie, uploadModel
+from .models import Course,Categorie, uploadModel, Slider
 from django.core.paginator import Paginator
 
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -16,10 +16,13 @@ import os
 def index(req):
     kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Categorie.objects.all()
+    sliders = Slider.objects.filter(is_active=True)
+
 
     return render(req,"courses/index.html", {
         'categories':kategoriler,
-        'courses':kurslar
+        'courses':kurslar,
+        'sliders':sliders,
     })
 
 
