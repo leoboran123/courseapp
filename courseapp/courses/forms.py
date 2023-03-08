@@ -3,7 +3,6 @@ from django.core.validators import validate_slug
 from django.forms import widgets, TextInput, Textarea, ModelForm, SelectMultiple
 from courses.models import Course
 
-
 class CourseCreateForm(ModelForm):
     class Meta:
         model = Course

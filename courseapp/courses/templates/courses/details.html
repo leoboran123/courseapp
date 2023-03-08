@@ -22,8 +22,11 @@
             <div class="col-8">
                 
                 <h1>{{ course.title }}</h1>
-                <p>{{ course.description }}</p>
+                <p>{{ course.subtitle }}</p>
             
+            </div>
+            <div class="col-12">
+                <p>{{ course.description|safe }}</p>
             </div>
         </div>
     </div>
