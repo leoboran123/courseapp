@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User 
 from django.contrib import messages
-from account.forms import loginUserForm
+from account.forms import loginUserForm, NewUserForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 def user_login(req):
@@ -46,39 +47,29 @@ def user_login(req):
 
 def user_register(req):
     if req.method == "POST":
-        username = req.POST["username"]
-        email = req.POST["email"]
-        password = req.POST["password"]
-        repassword = req.POST["repassword"]
+        form = NewUserForm(req.POST)
 
-        if password == repassword:
-            if User.objects.filter(username = username).exists():
-                return render(req, 'account/register.html', {
-                "error":"Bu kullanıcı adı kullanılıyor!",
-                "username":username,
-                "email":email
-                })
-            else:
-                if User.objects.filter(email = email).exists():
-                    return render(req, 'account/register.html', {
-                    "error":"Bu email kullanılıyor!",
-                    "username":username,
-                    "email":email
-                    })
-                else:
-                    user = User.objects.create_user(username = username, email = email, password = password)
-                    user.save()
-                    return redirect("user_login")
+        if form.is_valid():
+            form.save()
+
+
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+
+            user = authenticate(req, username=username, password=password)
+            login(req, user)
+            return redirect("index")
 
         else:
-            return render(req, 'account/register.html', {
-                "error":"Girilen parolalar eşleşmiyor!",
-                "username":username,
-                "email":email
+            return render(req, "account/register.html", {
+                "form":form
             })
-            
+
     else:
-        return render(req, 'account/register.html')
+        form = NewUserForm()
+        return render(req, "account/register.html", {
+            "form":form
+        })
 
 
 def user_logout(req):
